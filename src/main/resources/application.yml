@@ -1,0 +1,8 @@
+server:
+    port: 8000
+spring:
+    data:
+        mongodb:
+            uri: mongodb+srv://khiem:khiem123@ecommerce.mt8ymga.mongodb.net/
+            database: test
+
