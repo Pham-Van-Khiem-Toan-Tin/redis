@@ -11,6 +11,8 @@ import org.springframework.security.web.SecurityFilterChain;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
@@ -19,12 +21,14 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeRequests(
-                        authorizeRequests -> authorizeRequests.antMatchers(HttpMethod.GET, "/**").permitAll())
-                .formLogin(withDefaults())
+                        authorizeRequests -> authorizeRequests.antMatchers("/register/**").permitAll()
+                                .antMatchers("/login/**").permitAll())
+                .formLogin(login -> login.defaultSuccessUrl("/test/home"))
                 .logout(withDefaults())
                 .httpBasic(withDefaults());
         return http.build();
     }
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
